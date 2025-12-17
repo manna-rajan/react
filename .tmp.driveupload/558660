@@ -1,0 +1,52 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Nav from './Nav'
+
+const Viewall = () => {
+  const [rent, setrent] = useState([{}])
+
+  const apicall = () => { axios.post("http://localhost:3000/getrent").then((response) => { setrent(response.data) }).catch() }
+
+  useEffect(() => { apicall() }, [])
+
+  return (
+    <div><Nav />
+      <div className="container">
+        <div className="row g-3">
+
+          <div className="d-flex col col-12 col-sm-12 col-md-12 col-lg-12 col-xxl-12">
+            <table class="table">
+              <thead >
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Model</th>
+                  <th scope="col">Rent / day</th>
+                  <th scope="col">Paid</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {rent.map((value) => {
+                  return <tr>
+                    <th scope="row">{value.name}</th>
+                    <td>{value.type}</td>
+                    <td>{value.brand}</td>
+                    <td>{value.model}</td>
+                    <td>{value.rentday}</td>
+                    <td>{value.paid}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  )
+}
+
+export default Viewall

@@ -1,0 +1,52 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Nav from './Nav'
+
+const Viewall = () => {
+  const [gym, setgym] = useState([{}])
+
+  const apicall = () => { axios.post("http://localhost:3000/getgym").then((response) => { setgym(response.data) }).catch() }
+
+  useEffect(() => { apicall() }, [])
+
+  return (
+    <div><Nav />
+      <div className="container">
+        <div className="row g-3">
+
+          <div className="d-flex col col-12 col-sm-12 col-md-12 col-lg-12 col-xxl-12">
+            <table class="table">
+              <thead >
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Membership type</th>
+                  <th scope="col">Duration In Months</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Trainer</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {gym.map((value) => {
+                  return <tr>
+                    <th scope="row">{value.name}</th>
+                    <td>{value.membershipType}</td>
+                    <td>{value.durationInMonths}</td>
+                    <td>{value.price}</td>
+                    <td>{value.startDate}</td>
+                    <td>{value.Trainer}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  )
+}
+
+export default Viewall

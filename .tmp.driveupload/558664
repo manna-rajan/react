@@ -1,0 +1,80 @@
+import React, { useState } from 'react'
+import Nav from './Nav'
+import axios from 'axios';
+
+const Add = () => {
+  const [input,changeInput]= useState(
+    {
+            name:"",
+            type: "", 
+            brand: "",
+            model: "",
+            rentday: "",
+            paid: ""
+    }
+  )
+  const handleChange = (e) => {
+    changeInput({ 
+      ...input, 
+      [e.target.name]: e.target.value 
+    });
+  };
+  const valueRead =()=>{
+    console.log(input)
+    axios.post("http://localhost:3000/addrent",input)
+    .then((response)=>{
+      console.log(response)
+alert("Added successfully")
+    }).catch()
+  }
+  return (
+    <div><Nav />
+      <div className="container">
+        <div className="row">
+          <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            <div className="row g-3">
+              <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <label htmlFor="" className="form-label">Name</label>
+                <input type="text" className="form-control" name='name' value={input.name} onChange={handleChange} />
+              </div>
+
+              <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <label htmlFor="" className="form-label">Type</label>
+                <input type="text" className="form-control" name='type' value={input.type} onChange={handleChange}/>
+              </div>
+              <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <label htmlFor="" className="form-label">Brand</label>
+                <input type="text" className="form-control" name='brand' value={input.brand} onChange={handleChange}/>
+              </div>
+              <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <label htmlFor="" className="form-label">Model</label>
+                <input type="text" className="form-control" name='model' value={input.model} onChange={handleChange}/>
+              </div>
+               <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <label htmlFor="" className="form-label">Rent / day</label>
+                <input type="number" className="form-control" name='rentday' value={input.rentday} onChange={handleChange}/>
+              </div>
+               <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <label htmlFor="" className="form-label">Paid</label>
+                <input type="text" className="form-control" name='paid' value={input.paid} onChange={handleChange}/>
+              </div>
+              <div className="col col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                <button className="btn btn-success" onClick={valueRead}>Submit</button>
+              </div>
+
+
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  )
+}
+
+export default Add

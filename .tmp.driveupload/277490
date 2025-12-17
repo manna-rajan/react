@@ -1,0 +1,52 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Nav from './Nav'
+
+const Viewall = () => {
+  const [cloth, setcloth] = useState([{}])
+
+  const apicall = () => { axios.post("http://localhost:3000/getcloth").then((response) => { setcloth(response.data) }).catch() }
+
+  useEffect(() => { apicall() }, [])
+
+  return (
+    <div><Nav />
+      <div className="container">
+        <div className="row g-3">
+
+          <div className="d-flex col col-12 col-sm-12 col-md-12 col-lg-12 col-xxl-12">
+            <table class="table">
+              <thead >
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Color</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Material</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {cloth.map((value) => {
+                  return <tr>
+                    <th scope="row">{value.name}</th>
+                    <td>{value.size}</td>
+                    <td>{value.color}</td>
+                    <td>{value.price}</td>
+                    <td>{value.brand}</td>
+                    <td>{value.material}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  )
+}
+
+export default Viewall
