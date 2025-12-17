@@ -1,0 +1,48 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Nav from './Nav'
+
+const Viewall = () => {
+  const [food, setfood] = useState([{}])
+
+  const apicall = () => { axios.post("http://localhost:3000/getfood").then((response) => { setfood(response.data) }).catch() }
+
+  useEffect(() => { apicall() }, [])
+
+  return (
+    <div><Nav />
+      <div className="container">
+        <div className="row g-3">
+
+          <div className="d-flex col col-12 col-sm-12 col-md-12 col-lg-12 col-xxl-12">
+            <table class="table">
+              <thead >
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Calories</th>
+                  <th scope="col">Protein</th>
+                  <th scope="col">Fat</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {food.map((value) => {
+                  return <tr>
+                    <th scope="row">{value.name}</th>
+                    <td>{value.calories}</td>
+                    <td>{value.protein}</td>
+                    <td>{value.fat}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  )
+}
+
+export default Viewall
